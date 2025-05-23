@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Reference extends Model
+{
+    use HasFactory;
+
+    protected $fillable = ([
+        'article_id',
+        'title',
+        'publication_year',
+        'url',
+    ]) ;
+
+
+    public function article()
+    {
+        return $this->belongsTo(Article::class);
+    }
+}
