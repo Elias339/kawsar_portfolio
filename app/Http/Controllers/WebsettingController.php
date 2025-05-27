@@ -17,7 +17,6 @@ class WebsettingController extends Controller
     {
         $setting = Websetting::first();
 
-
         if(isset($request->logo)){
             $img = $request->file('logo');
             $name = time() . "_" . $img->getClientOriginalName();
@@ -62,7 +61,6 @@ class WebsettingController extends Controller
         ]);
 
     }
-
 
     public function socialUpdate(Request $request)
     {
