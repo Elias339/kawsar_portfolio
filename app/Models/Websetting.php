@@ -8,16 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 class Websetting extends Model
 {
     use HasFactory;
+
     protected $fillable = [
         'name',
-        'designation',
         'email',
-        'description',
         'profile',
         'logo',
-        'long_description',
-        'foot_text',
         'phone',
+        'address',
+
+        'banner_title',
+        'banner_image',
+        'profession',
+        'resume',
+        'about_title',
+        'about_description',
 
         'linkedin',
         'facebook',
@@ -28,4 +33,5 @@ class Websetting extends Model
         'pinterest',
         'twitter',
     ];
+
 }
