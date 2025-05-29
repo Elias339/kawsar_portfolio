@@ -21,39 +21,8 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group ml-2">
-                                    <label for="designation" class="form-label" style="font-size: 18px">Designation</label>
-                                    <input type="text" class="form-control form-check-info shadow" name="designation" id="designation" value="{{$websetting->designation ?? ''}}">
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="col-md-6">
-                                <div class="form-group mr-2">
-                                    <label for="description" class="form-label" style="font-size: 18px">Description</label>
-                                    <textarea class="form-control form-check-info shadow" name="description" id="description" >{{$websetting->description ?? ''}}</textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group mr-2">
-                                    <label for="long_description" class="form-label" style="font-size: 18px">Long Description</label>
-                                    <textarea class="form-control form-check-info shadow" name="long_description" id="long_description" >{{$websetting->long_description ?? ''}}</textarea>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="col-md-6">
-                                <div class="form-group ml-2">
-                                    <label for="email" class="form-label" style="font-size: 18px">Email</label>
-                                    <input type="email" class="form-control form-check-info shadow" name="email" id="email"  value="{{$websetting->email ?? ''}}">
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group mr-2">
-                                    <label for="phone" class="form-label" style="font-size: 18px">Number</label>
-                                    <input type="tel" class="form-control form-check-info shadow" name="phone" id="phone" value="{{$websetting->phone ?? ''}}">
+                                    <label for="address" class="form-label" style="font-size: 18px">Address</label>
+                                    <input type="text" class="form-control form-check-info shadow" name="address" id="address" value="{{$websetting->address ?? ''}}">
                                 </div>
                             </div>
                         </div>
@@ -97,13 +66,33 @@
 
                         <div class="row mt-2">
                             <div class="col-md-6">
+                                <div class="form-group ml-2">
+                                    <label for="email" class="form-label" style="font-size: 18px">Email</label>
+                                    <input type="email" class="form-control form-check-info shadow" name="email" id="email"  value="{{$websetting->email ?? ''}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
                                 <div class="form-group mr-2">
-                                    <label for="foot_text" style="font-size: 18px">Footer Text</label>
-                                    <input type="text" class="form-control form-check-info shadow" name="foot_text" id="foot_text"  value="{{$websetting->foot_text ?? ''}}">
+                                    <label for="phone" class="form-label" style="font-size: 18px">Phone</label>
+                                    <input type="tel" class="form-control form-check-info shadow" name="phone" id="phone" value="{{$websetting->phone ?? ''}}">
                                 </div>
                             </div>
                         </div>
 
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <div class="form-group mr-2">
+                                    <label for="about_title" class="form-label" style="font-size: 18px">About Title</label>
+                                    <input type="text" class="form-control form-check-info shadow" name="about_title" id="about_title" value="{{$websetting->about_title ?? ''}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mr-2">
+                                    <label for="about_description" class="form-label" style="font-size: 18px">About Description</label>
+                                    <textarea class="form-control form-check-info shadow" name="about_description" id="about_description" >{{$websetting->about_description ?? ''}}</textarea>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-md-12">
@@ -128,7 +117,6 @@
 
                     <form class="" action="{{ route('webSettings.social.update') }}" id="edit_social_form" method="POST" enctype="multipart/form-data">
                         @csrf
-
                         <div class="row mt-3">
                             <div class="col-md-6">
                                 <div class="form-group ml-2">
@@ -210,8 +198,7 @@
 
     <script>
         $(function () {
-
-            //Basic web settings Update
+            //Basic settings Update
             $("#edit_basic_form").submit(function (e) {
                 e.preventDefault();
                 const formData = new FormData($("#edit_basic_form")[0]);
@@ -237,7 +224,6 @@
                 });
             });
 
-
             //Social Update
             $("#edit_social_form").submit(function (e) {
                 e.preventDefault();
@@ -258,16 +244,11 @@
                             $("#edit_social_form")[0].reset();
                             $("#update_social_btn").text('Update');
                             location.reload();
-
-
                         }
                     },
 
                 });
             });
-
-
-
         });
     </script>
 

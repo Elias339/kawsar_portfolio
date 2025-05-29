@@ -11,15 +11,16 @@ class Websetting extends Model
 
     protected $fillable = [
         'name',
-        'email',
+        'address',
         'profile',
         'logo',
         'phone',
-        'address',
+        'email',
+
 
         'banner_title',
-        'banner_image',
         'profession',
+        'banner_image',
         'resume',
         'about_title',
         'about_description',
