@@ -17,7 +17,6 @@ class Websetting extends Model
         'phone',
         'email',
 
-
         'banner_title',
         'profession',
         'banner_image',

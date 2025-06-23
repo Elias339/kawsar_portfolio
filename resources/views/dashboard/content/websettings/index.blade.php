@@ -37,13 +37,12 @@
                             <div class="col-md-6">
                                 <div class="form-group ml-2">
                                     @if($websetting->profile ?? '')
-                                        <img style="height: 70px; width: 70px;" src="{{ asset($websetting->profile ?? '') }}" alt="profile">
+                                        <img style="height: 70px; width: 70px;" src="{{ asset('storage/'.$websetting->profile ?? '') }}" alt="profile">
                                     @else
                                         <span>No profile available</span>
                                     @endif
                                 </div>
                             </div>
-
                         </div>
 
                         <div class="row mt-2">
@@ -56,7 +55,7 @@
                             <div class="col-md-6">
                                 <div class="form-group ml-2">
                                     @if($websetting->logo ?? '')
-                                        <img style="height: 70px; width: 70px;" src="{{ asset($websetting->logo ?? '') }}" alt="logo">
+                                        <img style="height: 70px; width: 70px;" src="{{ asset('storage/'.$websetting->logo ?? '') }}" alt="logo">
                                     @else
                                         <span>No logo available</span>
                                     @endif
@@ -82,6 +81,21 @@
                         <div class="row mt-2">
                             <div class="col-md-6">
                                 <div class="form-group mr-2">
+                                    <label for="about_title" class="form-label" style="font-size: 18px">Banner Title</label>
+                                    <input type="text" class="form-control form-check-info shadow" name="banner_title" id="banner_title" value="{{$websetting->banner_title ?? ''}}">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mr-2">
+                                    <label for="profession" class="form-label" style="font-size: 18px">Profession</label>
+                                    <input type="text" class="form-control form-check-info shadow" name="profession" id="profession" value="{{$websetting->profession ?? ''}}">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <div class="form-group mr-2">
                                     <label for="about_title" class="form-label" style="font-size: 18px">About Title</label>
                                     <input type="text" class="form-control form-check-info shadow" name="about_title" id="about_title" value="{{$websetting->about_title ?? ''}}">
                                 </div>
@@ -90,6 +104,42 @@
                                 <div class="form-group mr-2">
                                     <label for="about_description" class="form-label" style="font-size: 18px">About Description</label>
                                     <textarea class="form-control form-check-info shadow" name="about_description" id="about_description" >{{$websetting->about_description ?? ''}}</textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <div class="form-group ml-2">
+                                    <label for="banner_image" class="form-label" style="font-size: 18px">Banner Image</label>
+                                    <input type="file" class="form-control form-check-info shadow" name="banner_image" id="banner_image" >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group ml-2">
+                                    @if($websetting->banner_image ?? '')
+                                        <img style="height: 70px; width: 70px;" src="{{ asset('storage/'.$websetting->banner_image ?? '') }}" alt="banner_image">
+                                    @else
+                                        <span>No banner image available</span>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                                <div class="form-group ml-2">
+                                    <label for="resume" class="form-label" style="font-size: 18px">Resume</label>
+                                    <input type="file" class="form-control form-check-info shadow" name="resume" id="resume" >
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group ml-2">
+                                    @if($websetting->resume ?? '')
+                                        <img style="height: 70px; width: 70px;" src="{{ asset('storage/'.$websetting->resume ?? '') }}" alt="resume">
+                                    @else
+                                        <span>No resume available</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -114,7 +164,6 @@
 
             <div class="row">
                 <div class="col-md-10 offset-1 mt-3">
-
                     <form class="" action="{{ route('webSettings.social.update') }}" id="edit_social_form" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row mt-3">

@@ -1,9 +1,6 @@
 <?php
 
-use App\Http\Controllers\ArticleController;
-use App\Http\Controllers\CKEditorController;
 use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\ReferenceController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectCategoryController;
 use App\Http\Controllers\SliderController;

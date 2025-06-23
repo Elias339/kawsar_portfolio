@@ -63,10 +63,7 @@
 <header>
     <!-- Start Navigation -->
     <nav class="navbar mobile-sidenav onepage-menu mobile-nav-only attr-border navbar-sticky navbar-default validnavs navbar-fixed dark no-background">
-
-
         <div class="container d-flex justify-content-between align-items-center">
-
             <!-- Start Header Navigation -->
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">

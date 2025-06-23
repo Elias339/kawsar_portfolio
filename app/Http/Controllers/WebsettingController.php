@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Websetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class WebsettingController extends Controller
 {
@@ -17,50 +18,79 @@ class WebsettingController extends Controller
     {
         $setting = Websetting::first();
 
-        if(isset($request->logo)){
-            $img = $request->file('logo');
-            $name = time() . "_" . $img->getClientOriginalName();
-            $uploadPath = ('images/logo/');
-            $img->move($uploadPath, $name);
-            $imageUrl = $uploadPath . $name;
-        }else{
-            $imageUrl = $setting->logo;
+        // logo upload
+        if ($request->hasFile('logo')) {
+            if ($setting && $setting->logo) {
+                Storage::disk('public')->delete(str_replace('storage/', '', $setting->logo));
+            }
+            $logoFile = $request->file('logo');
+            $logoName = time() . '_' . $logoFile->getClientOriginalName();
+            $logoPath = $logoFile->storeAs('logo', $logoName, 'public');
+        } else {
+            $logoPath = $setting->logo ?? null;
         }
 
-        if(isset($request->profile)){
-            $img = $request->file('profile');
-            $name_p = time() . "_" . $img->getClientOriginalName();
-            $uploadPath_p = ('images/profile/');
-            $img->move($uploadPath_p, $name_p);
-            $imageUrl_p = $uploadPath_p . $name_p;
-        }else{
-            $imageUrl_p = $setting->profile;
+        // profile upload
+        if ($request->hasFile('profile')) {
+            if ($setting && $setting->profile) {
+                Storage::disk('public')->delete(str_replace('storage/', '', $setting->profile));
+            }
+            $profileFile = $request->file('profile');
+            $profileName = time() . '_' . $profileFile->getClientOriginalName();
+            $profilePath = $profileFile->storeAs('profile', $profileName, 'public');
+        } else {
+            $profilePath = $setting->profile ?? null;
+        }
+
+        // banner image upload
+        if ($request->hasFile('banner_image')) {
+            if ($setting && $setting->banner_image) {
+                Storage::disk('public')->delete(str_replace('storage/', '', $setting->banner_image));
+            }
+            $bannerFile = $request->file('banner_image');
+            $bannerName = time() . '_' . $bannerFile->getClientOriginalName();
+            $bannerPath = $bannerFile->storeAs('banner', $bannerName, 'public');
+        } else {
+            $bannerPath = $setting->banner_image ?? null;
+        }
+
+        // resume upload
+        if ($request->hasFile('resume')) {
+            if ($setting && $setting->resume) {
+                Storage::disk('public')->delete(str_replace('storage/', '', $setting->resume));
+            }
+            $resumeFile = $request->file('resume');
+            $resumeName = time() . '_' . $resumeFile->getClientOriginalName();
+            $resumePath = $resumeFile->storeAs('resume', $resumeName, 'public');
+        } else {
+            $resumePath = $setting->resume ?? null;
         }
 
         $data = [
             'name' => $request->name,
-            'designation' => $request->designation,
-            'email' => $request->email,
-            'description' => $request->description,
-            'profile' => $imageUrl_p,
-            'logo' => $imageUrl,
-            'long_description' => $request->long_description,
-            'foot_text' => $request->foot_text,
+            'address' => $request->address,
+            'profile' => $profilePath,
+            'logo' => $logoPath,
             'phone' => $request->phone,
+            'email' => $request->email,
+            'banner_title' => $request->banner_title,
+            'profession' => $request->profession,
+            'banner_image' => $bannerPath,
+            'resume' => $resumePath,
+            'about_title' => $request->about_title,
+            'about_description' => $request->about_description,
         ];
 
         if (!$setting) {
             Websetting::create($data);
-
         } else {
             $setting->update($data);
         }
 
-        return response()->json([
-            'status' => 'success',
-        ]);
-
+        return response()->json(['status' => 'success']);
     }
+
+
 
     public function socialUpdate(Request $request)
     {
