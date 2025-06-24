@@ -16,14 +16,12 @@ class Websetting extends Model
         'logo',
         'phone',
         'email',
-
         'banner_title',
         'profession',
         'banner_image',
         'resume',
         'about_title',
         'about_description',
-
         'linkedin',
         'facebook',
         'instagram',

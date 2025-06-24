@@ -20,7 +20,6 @@ Route::get('/dashboard', function () {
     return view('dashboard.content.home.index');
 })->middleware(['auth'])->name('dashboard');
 
-
 Route::middleware(['auth'])->group(function () {
     Route::name('webSettings.')->group(function(){
         Route::get('/setting/index',[WebsettingController::class,'index'])->name('index');

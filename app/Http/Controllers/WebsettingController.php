@@ -18,53 +18,10 @@ class WebsettingController extends Controller
     {
         $setting = Websetting::first();
 
-        // logo upload
-        if ($request->hasFile('logo')) {
-            if ($setting && $setting->logo) {
-                Storage::disk('public')->delete(str_replace('storage/', '', $setting->logo));
-            }
-            $logoFile = $request->file('logo');
-            $logoName = time() . '_' . $logoFile->getClientOriginalName();
-            $logoPath = $logoFile->storeAs('logo', $logoName, 'public');
-        } else {
-            $logoPath = $setting->logo ?? null;
-        }
-
-        // profile upload
-        if ($request->hasFile('profile')) {
-            if ($setting && $setting->profile) {
-                Storage::disk('public')->delete(str_replace('storage/', '', $setting->profile));
-            }
-            $profileFile = $request->file('profile');
-            $profileName = time() . '_' . $profileFile->getClientOriginalName();
-            $profilePath = $profileFile->storeAs('profile', $profileName, 'public');
-        } else {
-            $profilePath = $setting->profile ?? null;
-        }
-
-        // banner image upload
-        if ($request->hasFile('banner_image')) {
-            if ($setting && $setting->banner_image) {
-                Storage::disk('public')->delete(str_replace('storage/', '', $setting->banner_image));
-            }
-            $bannerFile = $request->file('banner_image');
-            $bannerName = time() . '_' . $bannerFile->getClientOriginalName();
-            $bannerPath = $bannerFile->storeAs('banner', $bannerName, 'public');
-        } else {
-            $bannerPath = $setting->banner_image ?? null;
-        }
-
-        // resume upload
-        if ($request->hasFile('resume')) {
-            if ($setting && $setting->resume) {
-                Storage::disk('public')->delete(str_replace('storage/', '', $setting->resume));
-            }
-            $resumeFile = $request->file('resume');
-            $resumeName = time() . '_' . $resumeFile->getClientOriginalName();
-            $resumePath = $resumeFile->storeAs('resume', $resumeName, 'public');
-        } else {
-            $resumePath = $setting->resume ?? null;
-        }
+        $logoPath = $this->handleFileUpload($request, 'logo', $setting);
+        $profilePath = $this->handleFileUpload($request, 'profile', $setting);
+        $bannerPath = $this->handleFileUpload($request, 'banner_image', $setting);
+        $resumePath = $this->handleFileUpload($request, 'resume', $setting);
 
         $data = [
             'name' => $request->name,
@@ -90,12 +47,23 @@ class WebsettingController extends Controller
         return response()->json(['status' => 'success']);
     }
 
+    private function handleFileUpload(Request $request, $field, $setting)
+    {
+        if ($request->hasFile($field)) {
+            if ($setting && $setting->$field) {
+                Storage::disk('public')->delete(str_replace('storage/', '', $setting->$field));
+            }
+            $file = $request->file($field);
+            $fileName = time() . '_' . $file->getClientOriginalName();
+            return $file->storeAs($field, $fileName, 'public');
+        }
 
+        return $setting->$field ?? null;
+    }
 
     public function socialUpdate(Request $request)
     {
         $social = Websetting::first();
-
         $social->update([
             'linkedin'=>$request->linkedin,
             'facebook'=>$request->facebook,
@@ -106,9 +74,9 @@ class WebsettingController extends Controller
             'pinterest'=>$request->pinterest,
             'twitter'=>$request->twitter,
         ]);
-
         return response()->json([
             'status' => 'success',
         ]);
     }
+
 }
