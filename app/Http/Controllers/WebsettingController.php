@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Websetting;
+use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class WebsettingController extends Controller
 {
+    use FileUploadTrait;
+
     public function index()
     {
         $websetting = Websetting::first();
@@ -45,20 +47,6 @@ class WebsettingController extends Controller
         }
 
         return response()->json(['status' => 'success']);
-    }
-
-    private function handleFileUpload(Request $request, $field, $setting)
-    {
-        if ($request->hasFile($field)) {
-            if ($setting && $setting->$field) {
-                Storage::disk('public')->delete(str_replace('storage/', '', $setting->$field));
-            }
-            $file = $request->file($field);
-            $fileName = time() . '_' . $file->getClientOriginalName();
-            return $file->storeAs($field, $fileName, 'public');
-        }
-
-        return $setting->$field ?? null;
     }
 
     public function socialUpdate(Request $request)
