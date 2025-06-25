@@ -20,10 +20,10 @@ class WebsettingController extends Controller
     {
         $setting = Websetting::first();
 
-        $logoPath = $this->handleFileUpload($request, 'logo', $setting);
-        $profilePath = $this->handleFileUpload($request, 'profile', $setting);
-        $bannerPath = $this->handleFileUpload($request, 'banner_image', $setting);
-        $resumePath = $this->handleFileUpload($request, 'resume', $setting);
+        $logoPath = $this->handleFileUpdate($request, 'logo', $setting , 'images/logo');
+        $profilePath = $this->handleFileUpdate($request, 'profile', $setting, 'images/profile');
+        $bannerPath = $this->handleFileUpdate($request, 'banner_image', $setting, 'images/banner_image');
+        $resumePath = $this->handleFileUpdate($request, 'resume', $setting, 'images/resume');
 
         $data = [
             'name' => $request->name,

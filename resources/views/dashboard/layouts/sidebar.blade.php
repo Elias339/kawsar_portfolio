@@ -14,7 +14,7 @@
         </a>
 
         <a href="{{route('slider.index')}}" class="list-group-item list-group-item-action bg-transparent fw-bold">
-            <i class="fas fa-sliders-h me-2"></i>Banner
+            <i class="fas fa-sliders-h me-2"></i>Slider
         </a>
 
         <a href="{{route('projectCategory.index')}}" class="list-group-item list-group-item-action bg-transparent fw-bold">

@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Slider;
+use App\Traits\FileUploadTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SliderController extends Controller
 {
+    use FileUploadTrait;
+
     public function index()
     {
         return view('dashboard.content.slider.index');
@@ -22,15 +26,7 @@ class SliderController extends Controller
             ]
         );
 
-        if(isset($request->image)){
-            $img = $request->file('image');
-            $name = time() . "_" . $img->getClientOriginalName();
-            $uploadPath = ('images/slider/');
-            $img->move($uploadPath, $name);
-            $imageUrl = $uploadPath . $name;
-        }
-
-
+        $imageUrl = $this->handleFileStore($request, 'image', 'images/slider');
 
         Slider::create([
             'title'=>$request->title,
@@ -63,15 +59,7 @@ class SliderController extends Controller
 
         $slider = Slider::find($id);
 
-        if(isset($request->image)){
-            $img = $request->file('image');
-            $name = time() . "_" . $img->getClientOriginalName();
-            $uploadPath = ('images/slider/');
-            $img->move($uploadPath, $name);
-            $imageUrl = $uploadPath . $name;
-        }else{
-            $imageUrl = $slider->image;
-        }
+        $imageUrl = $this->handleFileUpdate($request, 'image', $slider, 'images/slider/');
 
         $slider->update([
             'title'=>$request->edit_title,
@@ -87,7 +75,11 @@ class SliderController extends Controller
     public function delete(Request $request) {
         $id = $request->id;
         $slider = Slider::find($id);
-
+        if ($slider) {
+            if ($slider->image) {
+                Storage::disk('public')->delete($slider->image);
+            }
+        }
         $slider->delete();
 
         return response()->json([

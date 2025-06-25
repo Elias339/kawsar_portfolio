@@ -116,7 +116,6 @@
                 event.preventDefault();
                 const formData = new FormData($("#add_slider_form")[0]);
 
-
                 $(".text-danger").remove();
 
                 $(".error-image").empty();
@@ -167,7 +166,7 @@
                                 output += '<tr class="text-center">';
                                 output += '<td>' + ++key + '</td>';
                                 output += '<td>' + slider.title + '</td>';
-                                output += '<td><img src="{{ asset('/') }}/' + slider.image + '" width="80" class="img-thumbnail"></td>';
+                                output += '<td><img src="/storage/' + slider.image + '" width="50" class="img-thumbnail"></td>';
                                 output += '<td>' + slider.status + '</td>';
                                 output += '<td>';
                                 output += '<a href="#" id="' + slider.id + '" class="btn btn-sm btn-primary sliderEditIcon" data-bs-toggle="modal" data-bs-target="#EditSliderModal">Edit</a>';
@@ -198,7 +197,7 @@
                     } ,
                     success: function (response) {
                         $("#edit_title").val(response.title);
-                        $("#edit_image").attr('src', "{{ asset('public/images/slider/') }}/" + response.image);
+                        $("#edit_image").attr('src', '/storage/' + response.image);
                         $("#edit_status").val(response.status);
                         $("#slider_id").val(response.id);
                         $("#slider_image").val(response.image);
@@ -251,7 +250,6 @@
                     }
                 });
             });
-
 
         });
     </script>
